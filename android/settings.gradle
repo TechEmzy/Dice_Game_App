@@ -1,0 +1,49 @@
+// pluginManagement {
+//     def flutterSdkPath = {
+//         def properties = new Properties()
+//         file("local.properties").withInputStream { properties.load(it) }
+//         def flutterSdkPath = properties.getProperty("flutter.sdk")
+//         assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+//         return flutterSdkPath
+//     }()
+
+//     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
+//     repositories {
+//         google()
+//         mavenCentral()
+//         gradlePluginPortal()
+//     }
+// }
+
+// plugins {
+//     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+//     id "com.android.application" version "7.3.0" apply false
+//     id "org.jetbrains.kotlin.android" version "1.7.10" apply false
+// }
+
+// include ":app"
+
+pluginManagement {
+    includeBuild '$flutterSdkPath/packages/flutter_tools/gradle' // Replace with your Flutter SDK path
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+}
+
+include ":app", ":flutter_native_timezone"
+
+// Specify the version of Kotlin Gradle plugin for flutter_native_timezone
+rootProject.project(":flutter_native_timezone").buildscript {
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20" // Use the required version
+    }
+}
+
